@@ -1,23 +1,27 @@
-if (Meteor.isClient) {
-  // counter starts at 0
-  Session.setDefault('counter', 0);
+this.Documents = new Mongo.Collection("documents");
 
-  Template.hello.helpers({
-    counter: function () {
-      return Session.get('counter');
+if (Meteor.isClient){
+  Template.editor.helpers({
+    docid: function(){
+      console.log("doc id helper:");
+      console.log(Documents.findOne());
+      
+      var doc = Documents.findOne();      
+      if (doc){
+        return doc._id;
+      }
+      else{
+        return undefined;
+      }
     }
   });
-
-  Template.hello.events({
-    'click button': function () {
-      // increment the counter when button is clicked
-      Session.set('counter', Session.get('counter') + 1);
-    }
-  });
+  
 }
 
-if (Meteor.isServer) {
-  Meteor.startup(function () {
-    // code to run on server at startup
-  });
+if (Meteor.isServer){
+  Meteor.startup(function(){
+    if (!Documents.findOne()){
+      Documents.insert({title: "my new document"});
+    }  
+  });    
 }
