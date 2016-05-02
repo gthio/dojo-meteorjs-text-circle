@@ -1,4 +1,5 @@
 this.Documents = new Mongo.Collection("documents");
+EditingUsers = new Mongo.Collection("editingUsers");
 
 if (Meteor.isClient){
   
@@ -17,9 +18,13 @@ if (Meteor.isClient){
     },
     config: function() {
       return function(editor) {
+        editor.setOption("LineNumbers", true);
+        editor.setOption("mode", "html");
         editor.on("change", function(cm_editor, info) {
           $("#viewer_iframe").contents().find("html")
             .html(cm_editor.getValue());
+            
+          Meteor.call("addEditingUser")
         })
       }
     }
@@ -33,3 +38,9 @@ if (Meteor.isServer){
     }  
   });    
 }
+
+Meteor.methods({
+  addEditingUser: function(){
+    EditingUsers.insert({user: "xyz"});
+  }
+})
