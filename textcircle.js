@@ -41,6 +41,6 @@ if (Meteor.isServer){
 
 Meteor.methods({
   addEditingUser: function(){
-    EditingUsers.insert({user: "xyz"});
+    EditingUsers.insert({user: "Test123"});
   }
 })
