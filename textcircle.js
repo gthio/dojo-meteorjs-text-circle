@@ -63,7 +63,12 @@ if (Meteor.isClient){
         alert("You need to login first!");
       }
       else{
-        Meteor.call("addDoc");
+        Meteor.call("addDoc", function(err, res){
+          if(!err){
+            console.log("event call back received id: " + res);
+            Session.set("docid", res);
+          }  
+        });
       }
     }
   })
@@ -89,7 +94,11 @@ Meteor.methods({
         createdOn: new Date(),
         title:"my new doc"};
 
-      Documents.insert(doc);
+      var id = Documents.insert(doc);
+      
+      console.log("addDoc method: got an id " + id);
+      
+      return id;
     }
   },
   
