@@ -3,6 +3,9 @@ EditingUsers = new Mongo.Collection("editingUsers");
 
 if (Meteor.isClient){
   
+  Meteor.subscribe("documents");
+  Meteor.subscribe("editingUsers");
+  
   Template.editor.helpers({
     docid: function(){
       console.log("doc id helper:");
@@ -121,6 +124,14 @@ if (Meteor.isServer){
       Documents.insert({title: "my new document"});
     }  
   });    
+  
+  Meteor.publish("documents", function(){
+    return Documents.find({isPrivate: false});
+  })    
+  
+  Meteor.publish("editingUsers", function(){
+    return EditingUsers.find();
+  })
 }
 
 Meteor.methods({
