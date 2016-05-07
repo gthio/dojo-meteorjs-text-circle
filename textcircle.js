@@ -60,6 +60,25 @@ if (Meteor.isClient){
     }
   })
   
+  Template.docMeta.helpers({
+    document: function(){
+      return Documents.findOne({_id: Session.get("docid")});
+    }
+  })
+  
+  Template.editableText.helpers({
+    userCanEdit: function(doc, Collection){
+      doc = Documents.findOne({_id: Session.get("docid"), owner: Meteor.userId()});
+      
+      if (doc){
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+  })
+  
   Template.navbar.events({
     "click .js-add-doc": function(event){
       event.preventDefault();
