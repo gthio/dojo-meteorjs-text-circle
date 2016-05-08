@@ -126,7 +126,11 @@ if (Meteor.isServer){
   });    
   
   Meteor.publish("documents", function(){
-    return Documents.find({isPrivate: false});
+    return Documents.find({
+      $or:[
+      {isPrivate: false},
+      {owner: this.userId}]
+    })
   })    
   
   Meteor.publish("editingUsers", function(){
