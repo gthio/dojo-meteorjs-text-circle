@@ -136,11 +136,6 @@ Template.navbar.events({
       });
     }
   },
-    
-  "click .js-load-doc": function(event){
-    console.log(this);
-    Session.set("docid", this._id);
-  }
 })
   
 Template.docMeta.events({
