@@ -1,5 +1,25 @@
 Meteor.subscribe("documents");
 Meteor.subscribe("editingUsers");
+
+Router.configure({
+  layoutTemplate: 'ApplicationLayout'
+});
+
+Router.route('/', function(){
+  console.log("you hit slash");
+  this.render('navbar', {to: "header"});
+  this.render('docList', {to: "main"});
+});
+
+Router.route('/documents/:_id', function(){
+  console.log("you hit /documents" + this.params._id);
+  
+  Session.set("docid", this.params._id);
+  
+  this.render('navbar', {to: "header"});
+  this.render('docItem', {to: "main"});
+});
+
   
 Template.editor.helpers({
   docid: function(){
@@ -90,6 +110,12 @@ Template.editableText.helpers({
     else {
       return false;
     }
+  }
+})
+
+Template.docList.helpers({
+  documents: function(){
+    return Documents.find({});
   }
 })
   
