@@ -18,6 +18,9 @@
         {{> viewer}}
       </div>
     </div>
+    
+    {{> insertCommentForm}}
+    
   </div>
 </template>
 
@@ -55,4 +58,9 @@
     {{firstname}}
   </span>
   {{/each}}
+</template>
+
+<template name="insertCommentForm">
+  {{> quickForm collection="Comments" id="insertCommentForm" type="method"
+    meteormethod="addComment"}}
 </template>
