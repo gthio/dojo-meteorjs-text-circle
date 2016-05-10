@@ -19,6 +19,8 @@
       </div>
     </div>
     
+    {{> commentList}}
+    
     {{> insertCommentForm}}
     
   </div>
@@ -57,6 +59,19 @@
   <span class="label label-success">
     {{firstname}}
   </span>
+  {{/each}}
+</template>
+
+<template name="commentList">
+  {{#each comments}}
+  <ul>
+    <li>
+      {{title}}
+      <p>
+        {{body}}
+      </p>
+    </li>
+  </ul>
   {{/each}}
 </template>
 
