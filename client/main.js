@@ -21,7 +21,6 @@ Router.route('/documents/:_id', function(){
   this.render('docItem', {to: "main"});
 });
 
-  
 Template.editor.helpers({
   docid: function(){
     console.log("doc id helper:");
